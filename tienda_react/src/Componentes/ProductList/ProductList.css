@@ -1,0 +1,29 @@
+.main-content{
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filters{
+    text-align: start;
+    margin: 1rem;
+}
+.filters-datecategory{
+ flex-direction:column;
+ display: flex;
+ border: 1px solid gray;
+ padding: 1rem;
+ margin-top: 15px;
+ margin-right: 80px;
+}
+
+.filter-type{
+    padding: 1rem;
+
+}
+.collection{
+    display:flex;
+    position: relative;
+    margin-right: 300px;
+}

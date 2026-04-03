@@ -1,15 +1,21 @@
-import './App.css'
-import CargarTarjetas from './Componentes/CardConponent';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { Home } from "./Componentes/Home/Home";
+import { Navbar } from "./Componentes/NavBar/Navbar";
 
-const FuncionesApp = () => {
+function App() {
   return(
-    <div>
-      <h1>Mi tienda</h1>
-      <hr/>
-      <CargarTarjetas/>
-    </div>
+    <>
+    
+    <Router>
+      <Navbar/>
+     <Routes>
+       <Route path="/" element={ <Home/> }/>
+     </Routes>
+     </Router>
+    </>
+    
   )
 }
 
 
-export default FuncionesApp;
+export default App;
