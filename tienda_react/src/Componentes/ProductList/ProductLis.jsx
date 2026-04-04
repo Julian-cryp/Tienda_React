@@ -1,6 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './ProductList.css'
-export const ProductLis = () => {
+import { useState } from 'react';
+
+
+ export const ProductList=() => {
+    const [productos, setProductos] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() =>{
+       
+        const fetchProductos= async ()=>{
+            try{
+                const respuesta = await fetch('https://api-ten-jet.vercel.app/products');
+              if(!respuesta.ok){
+                throw new Error('no conectado');
+              }
+                  const data = await respuesta.json();
+                setProductos (data);
+
+            }catch(err){
+                setError(err.message);
+            }
+        }
+
+        fetchProductos();
+    }, []);
+
+
   return (
     <section className='main-content'>
         <aside className='filters'>
@@ -67,9 +93,36 @@ export const ProductLis = () => {
 
                     </label>
                 </div>
-            </div>
+               
+                <div className="Products">
+                 {error ? (
+                    <p className='error-message'>{error}</p>
+                 ):(
+                    productos.map ((item) =>{
+                        
+                        return(   
+                        
+                        <div className="card-product" key={item.id}>
+                            <img src={item.image} alt={item.image} className='product-image'
+                            />
+                            <h3>{item.nombre}</h3>
+                            <p>{item.descripcion}</p>
+                        </div>
 
+                        )
+                     
+                    }
+                )
+                 )
+                }
+
+                </div>
+          
+                
+            </div>
+ 
         </main>
     </section>
   )
 }
+

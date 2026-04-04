@@ -1,9 +1,10 @@
 import React from 'react'
-import { ProductLis } from '../ProductList/ProductLis'
+import { ProductList } from '../ProductList/ProductLis'
+
 export const Home = () => {
   return (
     <>
-    <ProductLis/>
+    <ProductList/>
     </>
   )
 }

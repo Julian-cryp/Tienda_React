@@ -4,6 +4,11 @@
     padding: 1.5rem;
     flex-wrap: wrap;
 }
+.option{
+    flex-direction: row;
+    margin-left: 20rem;
+    margin-top: -25rem;    
+}
 
 .filters{
     text-align: start;
@@ -25,5 +30,50 @@
 .collection{
     display:flex;
     position: relative;
-    margin-right: 300px;
+}
+
+.products {
+  display: grid;
+
+  gap: 30px; 
+  padding: 20px;
+  width: 100%;
+  overflow: visible; 
+}
+
+.card-product {
+  width: 280px; 
+  height: 445px;
+  display: flex;
+  flex-direction: column;
+
+  
+  border: 1px solid #000000;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.product-image {
+    width: 275px; 
+    border-radius: 10px;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.product-image:hover{
+    transform: scale(1.05);
+}
+
+.card-product h3{
+    font-size: 14px;
+    font-weight: 400;
+    padding: 15px 5px;
+}
+
+.card-product p{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
