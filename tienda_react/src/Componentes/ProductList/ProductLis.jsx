@@ -6,6 +6,8 @@ import { useState } from 'react';
  export const ProductList=() => {
     const [productos, setProductos] = useState([]);
     const [error, setError] = useState(null);
+    const [orden, setOrden] = useState("Relevante");
+    const [filtros, setFiltros] = useState({categorias:[] , tipos: []});
 
     useEffect(() =>{
        
@@ -27,6 +29,39 @@ import { useState } from 'react';
     }, []);
 
 
+    const toogleFiltros = (tipoFiltro, valor) =>{
+        setFiltros((prev)  => ({
+                   ...prev,
+            [tipoFiltro]: prev[tipoFiltro].includes(valor)
+            ? prev[tipoFiltro].filter((item) => item !== valor)
+            : [...prev[tipoFiltro], valor],
+        }))
+    }
+
+
+    const ProductosFiltros = productos.filter((productos) => {
+        const matchCategori = filtros.categorias.lenght === 0 || filtros.categorias.includes(productos.categorias);
+        const matchTipo =
+        filtros.tipos.length === 0 || filtros.tipos.includes(productos.tipo);
+        return matchCategori,  matchTipo
+    }) 
+     
+    const handleOrdenChange = (e) =>{
+      setOrden(e.target.value)
+    }
+
+    const productosOrdenados = [...productos].sort((a,b) => {
+        if(orden === ' Precio: Mayor a Menor'){
+            return b.precio - a.precio
+
+        }if(orden === 'Precio: Menor a Mayor'){
+            return a.precio - b.precio
+        }
+        return 0;
+    }
+
+)
+
   return (
     <section className='main-content'>
         <aside className='filters'>
@@ -35,17 +70,23 @@ import { useState } from 'react';
             <h3>Categoria</h3>
 
             <label>
-             <input type='checkbox'/>
+             <input type='checkbox'
+             onChange= {() => toogleFiltros("categorias" , "Hombre")}
+             />
              <span>Hombre</span>
             </label>
 
             <label>
-             <input type='checkbox'/>
+             <input type='checkbox'
+             onChange= {() => toogleFiltros("categorias" , "Mujeres")}
+             />
              <span>Mujeres</span>
             </label>
 
             <label>
-             <input type='checkbox'/>
+             <input type='checkbox'
+             onChange= {() => toogleFiltros("categorias" , "ni;os")}
+             />
              <span>nin;os</span>
             </label>
          </div>
@@ -79,7 +120,7 @@ import { useState } from 'react';
                 <div className="sort-options">
                     <label>
                         Ordernar por:
-                        <select>
+                        <select onChange={handleOrdenChange} value={orden}>
                             <option>
                                 Relevante
                             </option>
@@ -98,7 +139,7 @@ import { useState } from 'react';
                  {error ? (
                     <p className='error-message'>{error}</p>
                  ):(
-                    productos.map ((item) =>{
+                     productosOrdenados.map ((item) =>{
                         
                         return(   
                         
@@ -106,18 +147,21 @@ import { useState } from 'react';
                             <img src={item.image} alt={item.image} className='product-image'
                             />
                             <h3>{item.nombre}</h3>
-                            <p>{item.descripcion}</p>
+                            <p>{item.precio}</p>
                         </div>
 
                         )
                      
                     }
                 )
+          
                  )
                 }
 
+                
+
                 </div>
-          
+               
                 
             </div>
  
